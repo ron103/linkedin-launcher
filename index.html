@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Power Search — Rohan Waghmare</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0a0a0f;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      font-size: 0.85rem;
+      color: #64748b;
+      letter-spacing: 0.03em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #13131a;
+      border: 1px solid #1e1e2e;
+      border-radius: 12px;
+      padding: 1.4rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover { border-color: #6366f1; }
+
+    .card h2 {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6366f1;
+      margin-bottom: 1rem;
+    }
+
+    .link-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .link-list li a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      background: #0f0f18;
+      border: 1px solid #1a1a2e;
+      color: #c4c9d4;
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .link-list li a:hover {
+      background: #1e1b4b;
+      border-color: #6366f1;
+      color: #a5b4fc;
+    }
+
+    .link-list li a svg {
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    .badge {
+      margin-left: auto;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 99px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-people { background: #1e1b4b; color: #818cf8; }
+    .badge-job   { background: #0c2a1a; color: #34d399; }
+    .badge-bool  { background: #271a00; color: #fbbf24; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>LinkedIn Power Search</h1>
+  <p>United States · Last 24 hours · Sorted by date posted</p>
+</header>
+
+<div class="grid">
+
+  <!-- People: Hiring {role} -->
+  <div class="card">
+    <h2>People Searches — "Hiring {role}"</h2>
+    <ul class="link-list">
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20genai%20engineer%22%20OR%20%22hiring%20genai%20engineers%22%20OR%20%22hiring%20genai%20engineer%20roles%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        GenAI Engineer <span class="badge badge-people">People</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20ml%20engineer%22%20OR%20%22hiring%20machine%20learning%20engineer%22%20OR%20%22hiring%20ml%20engineers%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        ML / Machine Learning Engineer <span class="badge badge-people">People</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20llm%20engineer%22%20OR%20%22hiring%20llm%20engineers%22%20OR%20%22hiring%20llm%20engineer%20roles%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        LLM Engineer <span class="badge badge-people">People</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20ai%20engineer%22%20OR%20%22hiring%20ai%20engineers%22%20OR%20%22hiring%20ai%20engineer%20roles%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        AI Engineer <span class="badge badge-people">People</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20mlops%20engineer%22%20OR%20%22hiring%20mlops%20engineers%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        MLOps Engineer <span class="badge badge-people">People</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20software%20engineer%22%20OR%20%22hiring%20software%20engineers%22%20OR%20%22hiring%20software%20engineer%20roles%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Software Engineer <span class="badge badge-people">People</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20backend%20engineer%22%20OR%20%22hiring%20backend%20engineers%22%20OR%20%22hiring%20backend%20developer%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Backend Engineer <span class="badge badge-people">People</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20full%20stack%20engineer%22%20OR%20%22hiring%20full%20stack%20developer%22%20OR%20%22hiring%20fullstack%20engineer%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Full Stack Engineer <span class="badge badge-people">People</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22hiring%20python%20developer%22%20OR%20%22hiring%20python%20engineer%22%20OR%20%22hiring%20python%20developers%22" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Python Developer <span class="badge badge-people">People</span>
+      </a></li>
+    </ul>
+  </div>
+
+  <!-- People: Boolean precision -->
+  <div class="card">
+    <h2>People Searches — Boolean (precision filters)</h2>
+    <ul class="link-list">
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=(%22GenAI%22%20OR%20%22LLM%22)%20AND%20%22engineer%22%20AND%20hiring%20NOT%20intern" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        GenAI/LLM Engineer (no internships) <span class="badge badge-bool">Boolean</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22RAG%22%20AND%20%22MCP%22%20AND%20hiring" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        RAG + MCP niche (low competition) <span class="badge badge-bool">Boolean</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/search/results/people/?keywords=%22software%20engineer%22%20AND%20hiring%20NOT%20intern%20NOT%20senior" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Software Engineer (no intern/senior) <span class="badge badge-bool">Boolean</span>
+      </a></li>
+    </ul>
+  </div>
+
+  <!-- Job searches -->
+  <div class="card">
+    <h2>Job Searches — US · Last 24 h</h2>
+    <ul class="link-list">
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=GenAI%20Engineer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        GenAI Engineer <span class="badge badge-job">Jobs</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=LLM%20Engineer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        LLM Engineer <span class="badge badge-job">Jobs</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=Machine%20Learning%20Engineer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Machine Learning Engineer <span class="badge badge-job">Jobs</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=AI%20Engineer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        AI Engineer <span class="badge badge-job">Jobs</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=MLOps%20Engineer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        MLOps Engineer <span class="badge badge-job">Jobs</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=Software%20Engineer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Software Engineer <span class="badge badge-job">Jobs</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=Backend%20Engineer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Backend Engineer <span class="badge badge-job">Jobs</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=Full%20Stack%20Engineer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Full Stack Engineer <span class="badge badge-job">Jobs</span>
+      </a></li>
+      <li><a href="https://www.linkedin.com/jobs/search/?keywords=Python%20Developer&geoId=103644278&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Python Developer <span class="badge badge-job">Jobs</span>
+      </a></li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
