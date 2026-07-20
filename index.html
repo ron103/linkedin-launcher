@@ -139,6 +139,62 @@
 
     .finder-form button:hover { background: #4f46e5; }
     .finder-form button:disabled { background: #2d2d4a; color: #555; cursor: default; }
+
+    .tailor-card { grid-column: 1 / -1; max-width: 700px; margin-left: auto; margin-right: auto; width: 100%; }
+
+    .tailor-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
+    .tailor-row input { flex: 1; }
+
+    .tailor-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .tailor-textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      font-family: inherit;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      background: #0f0f18;
+      border: 1px solid #1a1a2e;
+      color: #c4c9d4;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 0.6rem;
+    }
+
+    .tailor-textarea::placeholder { color: #3a3a5c; }
+    .tailor-textarea:focus { border-color: #6366f1; }
+
+    .tailor-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      background: #6366f1;
+      border: none;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      width: 100%;
+    }
+
+    .tailor-btn:hover:not(:disabled) { background: #4f46e5; }
+    .tailor-btn:disabled { background: #2d2d4a; color: #555; cursor: default; }
+
+    .tailor-status { font-size: 0.8rem; margin-top: 0.6rem; display: none; }
   </style>
 </head>
 <body>
@@ -220,6 +276,22 @@
     </div>
   </div>
 
+  <!-- Resume Tailor -->
+  <div class="card tailor-card">
+    <h2>Resume Tailor — Gemini AI</h2>
+    <div class="tailor-row">
+      <input id="gemini-key" type="password" placeholder="Gemini API Key" />
+      <button onclick="saveGeminiKey()" style="display:flex;align-items:center;gap:0.4rem;padding:0.55rem 0.9rem;border-radius:8px;background:#6366f1;border:none;color:#fff;font-size:0.88rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background 0.15s;" onmouseover="this.style.background='#4f46e5'" onmouseout="this.style.background='#6366f1'">Save Key</button>
+    </div>
+    <label class="tailor-label" for="jd-input">Paste Job Description</label>
+    <textarea id="jd-input" class="tailor-textarea" placeholder="Paste the full job description here..."></textarea>
+    <button id="tailor-btn" class="tailor-btn" onclick="tailorResume()" disabled>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      Tailor &amp; Download Resume
+    </button>
+    <div id="tailor-status" class="tailor-status"></div>
+  </div>
+
   <!-- Job Portals -->
   <div class="card">
     <h2>Job Portals — New Grad</h2>
@@ -240,6 +312,290 @@
   </div>
 
 </div>
+<textarea id="resume-template" hidden>
+\documentclass[10pt, letterpaper]{article}
+
+\usepackage[
+    ignoreheadfoot,
+    top=1cm,
+    bottom=1cm,
+    left=0.9cm,
+    right=0.9cm,
+    footskip=1.0cm,
+]{geometry}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{primaryColor}{RGB}{0, 0, 0}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{amsmath}
+\usepackage[
+    pdftitle={Rohan Waghmare's Resume},
+    pdfauthor={Rohan Waghmare},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage[pscoord]{eso-pic}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{iftex}
+
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\usepackage{charter}
+
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0.15cm}
+\pagenumbering{gobble}
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{-1pt}{0.25cm}{0.15cm}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.08cm,
+        parsep=0.08cm,
+        partopsep=0pt,
+        itemsep=2.5pt,
+        leftmargin=0cm + 10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.08cm,
+        parsep=0.05cm,
+        partopsep=0pt,
+        itemsep=2pt,
+        leftmargin=8pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{0cm + 0.00001cm}{0cm + 0.00001cm}
+}{
+    \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{threecolentry}[3][]{
+    \onecolentry
+    \def\thirdColumn{#3}
+    \setcolumnwidth{, \fill, 0.5cm}
+    \begin{paracol}{3}
+    {\raggedright #2} \switchcolumn
+}{
+    \switchcolumn \raggedleft \thirdColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+}
+
+\let\hrefWithoutArrow\href
+
+% ──────────────────────────────────────────────
+\begin{document}
+
+\newcommand{\AND}{\unskip
+    \cleaders\copy\ANDbox\hskip\wd\ANDbox
+    \ignorespaces
+}
+\newsavebox\ANDbox
+\sbox\ANDbox{$|$}
+
+% ── HEADER ────────────────────────────────────
+\begin{header}
+    \textbf{\fontsize{23pt}{23pt}\selectfont Rohan Waghmare}
+
+    \vspace{0.15cm}
+
+    \normalsize
+    \mbox{Palo Alto, CA}%
+    \kern 5pt\AND\kern 5pt%
+    \mbox{\hrefWithoutArrow{mailto:waghmarerohan30@gmail.com}{\raisebox{-0.05\height}\faEnvelope\ waghmarerohan30@gmail.com}}%
+    \kern 5pt\AND\kern 5pt%
+    \mbox{\href{tel:+16072456001}{\raisebox{-0.05\height}\faMobile\ 607-245-6001}}%
+    \kern 5pt\AND\kern 5pt%
+    \mbox{\hrefWithoutArrow{https://rohanwaghmare.com/}{\raisebox{-0.05\height}\faGlobe\ rohanwaghmare.com}}%
+    \kern 5pt\AND\kern 5pt%
+    \mbox{\hrefWithoutArrow{https://linkedin.com/in/rohanwaghmare}{\raisebox{-0.05\height}\faLinkedin\ /rohanwaghmare}}%
+\end{header}
+
+\vspace{0.15cm}
+
+% ── SUMMARY ───────────────────────────────────
+\section{SUMMARY}
+\vspace{0.15cm}
+\begin{onecolentry}
+\fontsize{10.5pt}{14pt}\selectfont
+Software Developer with 1+ years of experience building \textbf{production GenAI systems} from \textbf{agentic pipelines} and \textbf{RAG architectures} to \textbf{LLM fine-tuning} and \textbf{MLOps} on GCP, AWS, and SAP BTP. \textbf{Open to relocation; available immediately.}
+\end{onecolentry}
+
+% ── WORK EXPERIENCE ───────────────────────────
+\section{WORK EXPERIENCE}
+
+\vspace{0.15cm}
+
+% SAP
+\begin{twocolentry}{Jan 2026 -- Present}
+    \textbf{\fontsize{11pt}{14pt}\selectfont SAP}
+\end{twocolentry}
+\begin{twocolentry}{Palo Alto, CA}
+    \textit{\fontsize{10pt}{12pt}\selectfont Software Developer iXP (AI)}
+\end{twocolentry}
+
+\vspace{0.15cm}
+
+\begin{onecolentry}
+    \fontsize{10.5pt}{14pt}\selectfont
+    \begin{highlights}
+        \item Fine-tuned \textbf{DeepSeek-14B} with \textbf{dual QLoRA adapters} on \textbf{SAP BTP} via KServe + FastAPI; \textbf{98\%} accuracy, \textbf{p95 $<$11s}.
+        \item Replaced a multi-hop \textbf{GPT-4} pipeline at \textbf{10x lower cost} via \textbf{MLOps} loop (Docker, ArgoCD, S3) and dynamic \textbf{\texttt{max\_new\_tokens}} re-inference; cut pipeline time from \textbf{1.5 min to under 30s}.
+        \item Built a \textbf{RAG pipeline} over a Knowledge Graph with confidence-scored retrieval; cut query-to-docs time by \textbf{92\%} (1hr+ to under 5 mins) for \textbf{5{,}000+ content developers}. Exposed the system as a \textbf{MCP server} (SSE, JSON-RPC 2.0).
+        \item Engineered a multi-step \textbf{agentic} pipeline (LangGraph / GPT-4) on \textbf{BTP} for document extraction and backend execution.
+        \item Extended to a production \textbf{MCP server} with \textbf{PKCE + SAP IDP} auth, audit logging, and tool-call agent observability.
+    \end{highlights}
+\end{onecolentry}
+
+\vspace{0.35cm}
+
+% Michigan Health Information Network
+\begin{twocolentry}{Mar 2025 -- Jan 2026}
+    \textbf{\fontsize{11pt}{14pt}\selectfont Michigan Health Information Network}
+\end{twocolentry}
+\begin{twocolentry}{Binghamton, NY (Remote)}
+    \textit{\fontsize{10pt}{12pt}\selectfont Software Engineer}
+\end{twocolentry}
+
+\vspace{0.15cm}
+
+\begin{onecolentry}
+    \fontsize{10.5pt}{14pt}\selectfont
+    \begin{highlights}
+        \item Built a Python data pipeline processing \textbf{500K+ records} across \textbf{10+ orgs} on AWS (ECS Fargate, S3, EventBridge, DynamoDB) with Docker/Terraform and cross-month aggregation.
+        \item Cut processing latency \textbf{40\%} via S3 Select API with conditional ScanRange and \textbf{multipart parallelization} (ThreadPoolExecutor, \textbf{20MB chunks}) across multi-GB files.
+    \end{highlights}
+\end{onecolentry}
+
+% ── PROJECTS ──────────────────────────────────
+\section{PROJECTS}
+
+\vspace{0.15cm}
+
+\begin{onecolentry}
+    \fontsize{10.5pt}{14pt}\selectfont
+    \textbf{Industry-Specific Layoff Tracker} \hfill \emph{Python, Flask, MongoDB, Faktory, NLTK, REST APIs} \href{https://github.com/ron103/industry-specific-layoff-tracker}{\raisebox{-0.05\height}\ \faGithub}
+\end{onecolentry}
+
+\vspace{0.05cm}
+
+\begin{onecolentry}
+    \fontsize{10.5pt}{14pt}\selectfont
+    \begin{highlights}
+        \item Ingested and processed \textbf{208K+ Reddit \& 4chan posts/month} into a real-time sentiment analysis pipeline.
+        \item Built \textbf{Python/Flask} APIs with sentiment/toxicity scoring (\textbf{98\% accuracy}) and Plotly dashboard visualizations.
+    \end{highlights}
+\end{onecolentry}
+
+\vspace{0.22cm}
+
+\begin{onecolentry}
+    \fontsize{10.5pt}{14pt}\selectfont
+    \textbf{Tuberculosis Detection via Transfer Learning} \hfill \emph{TensorFlow, ResNet-50, Python} \href{https://github.com/ron103/Detection-of-Tuberculosis-using-Transfer-Learning/}{\raisebox{-0.05\height}\ \faGithub}
+\end{onecolentry}
+
+\vspace{0.05cm}
+
+\begin{onecolentry}
+    \fontsize{10.5pt}{14pt}\selectfont
+    \begin{highlights}
+        \item Trained ResNet-50 on TBX11K with CLAHE preprocessing and augmentation, achieving \textbf{92\% accuracy}; validated via Grad-CAM, F1, and AUC.
+        \item Co-authored an \href{https://ieeexplore.ieee.org/document/10112352}{\textbf{IEEE-published}} paper synthesizing \textbf{60+} studies into a full medical AI pipeline.
+    \end{highlights}
+\end{onecolentry}
+
+% ── EDUCATION ─────────────────────────────────
+\section{EDUCATION}
+
+\vspace{0.15cm}
+
+\begin{twocolentry}{Aug 2023 -- Dec 2025}
+    \textbf{\fontsize{10.5pt}{14pt}\selectfont Binghamton University, State University of New York}
+\end{twocolentry}
+\begin{twocolentry}{}
+    \textit{\fontsize{10pt}{12pt}\selectfont Master of Science in Computer Science}
+\end{twocolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{Aug 2019 -- May 2023}
+    \textbf{\fontsize{10.5pt}{14pt}\selectfont School of Engineering, MIT ADT}
+\end{twocolentry}
+\begin{twocolentry}{}
+    \textit{\fontsize{10pt}{12pt}\selectfont Bachelor of Technology in Computer Science}
+\end{twocolentry}
+
+% ── TECHNICAL SKILLS ──────────────────────────
+\section{TECHNICAL SKILLS}
+
+\vspace{0.15cm}
+
+\begin{onecolentry}
+\fontsize{10.5pt}{14pt}\selectfont
+\begin{highlightsforbulletentries}
+    \item \textbf{Languages:} Python, JavaScript (React, Node, Express), C, SQL
+    \item \textbf{AI/ML:} LLM Fine-tuning (QLoRA), HuggingFace, MCP, LangGraph, Agentic, TensorFlow, Scikit-learn, RAG, OpenCV
+    \item \textbf{Cloud:} GCP (Vertex AI, BigQuery, Cloud Run, Pub/Sub, Vector Search), AWS, SAP BTP/AI Core, \href{https://www.credly.com/badges/5151c673-6042-4ead-bd9d-5ff8c2eb05fb/linked_in?t=sk3fjk}{AWS CCP}
+    \item \textbf{Backend \& APIs:} FastAPI, Flask, Django, REST APIs, MCP (SSE, JSON-RPC 2.0), SPARQL, RDF
+    \item \textbf{Databases:} PostgreSQL, SAP HANA, MongoDB, Vector DB (Pinecone)
+    \item \textbf{Tools:} Git, Linux/Unix, Docker, Terraform, Postman/Bruno, Pandas, NumPy, Grafana, Agile/SCRUM
+\end{highlightsforbulletentries}
+\end{onecolentry}
+
+\end{document}
+</textarea>
+
 <script>
   const companyInput = document.getElementById('fm-company');
   const roleInput    = document.getElementById('fm-role');
@@ -265,6 +621,111 @@
       `https://www.linkedin.com/search/results/people/?keywords=${q}&geoId=103644278`,
       '_blank', 'noopener'
     );
+  }
+
+  // ── Resume Tailor ──────────────────────────
+  const RESUME_LATEX    = document.getElementById('resume-template').value.trim();
+  const geminiKeyInput  = document.getElementById('gemini-key');
+  const jdInput         = document.getElementById('jd-input');
+  const tailorBtn       = document.getElementById('tailor-btn');
+  const tailorStatusEl  = document.getElementById('tailor-status');
+
+  geminiKeyInput.value = localStorage.getItem('geminiKey') || '';
+  updateTailorBtn();
+  geminiKeyInput.addEventListener('input', updateTailorBtn);
+  jdInput.addEventListener('input', updateTailorBtn);
+
+  function updateTailorBtn() {
+    tailorBtn.disabled = !geminiKeyInput.value.trim() || !jdInput.value.trim();
+  }
+
+  function saveGeminiKey() {
+    const k = geminiKeyInput.value.trim();
+    if (!k) return;
+    localStorage.setItem('geminiKey', k);
+    showTailorStatus('Key saved.', '#34d399');
+    setTimeout(() => showTailorStatus(''), 2000);
+  }
+
+  function showTailorStatus(msg, color) {
+    tailorStatusEl.textContent = msg;
+    tailorStatusEl.style.color = color || '#64748b';
+    tailorStatusEl.style.display = msg ? 'block' : 'none';
+  }
+
+  function triggerDownload(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement('a'), { href: url, download: filename });
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  async function tailorResume() {
+    const key = geminiKeyInput.value.trim();
+    const jd  = jdInput.value.trim();
+    if (!key || !jd) return;
+
+    tailorBtn.disabled = true;
+    showTailorStatus('⟳ Calling Gemini...');
+
+    try {
+      const prompt =
+        'You are a resume editor. Modify the LaTeX resume below to match the job description.\n\n' +
+        'STRICT RULES:\n' +
+        '1. Return ONLY the complete modified LaTeX — no markdown fences, no explanation.\n' +
+        '2. The resume MUST remain ONE page — preserve all margins, spacing, and document structure.\n' +
+        '3. Every technology, tool, or framework explicitly named in the job description MUST appear somewhere in the resume.\n' +
+        '4. To fit JD technologies, swap or condense existing bullet points — never add new sections or exceed one page.\n' +
+        '5. Keep all personal info, dates, company names, and LaTeX formatting commands unchanged.\n\n' +
+        '=== LATEX RESUME ===\n' + RESUME_LATEX + '\n\n' +
+        '=== JOB DESCRIPTION ===\n' + jd;
+
+      const geminiRes = await fetch(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + key,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+        }
+      );
+
+      if (!geminiRes.ok) {
+        const err = await geminiRes.json().catch(() => ({}));
+        throw new Error(err?.error?.message || 'Gemini HTTP ' + geminiRes.status);
+      }
+
+      const data = await geminiRes.json();
+      let latex = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      latex = latex.replace(/^```(?:latex)?\n?/i, '').replace(/\n?```\s*$/i, '').trim();
+      if (!latex.includes('\\documentclass')) throw new Error('Gemini returned unexpected output — check your API key.');
+
+      showTailorStatus('⟳ Compiling PDF...');
+
+      let downloaded = false;
+      try {
+        const fd = new FormData();
+        fd.append('file', new Blob([latex], { type: 'text/plain' }), 'resume.tex');
+        const pdfRes = await fetch('https://latex.online/api/convert', { method: 'POST', body: fd });
+        if (pdfRes.ok && (pdfRes.headers.get('content-type') || '').includes('pdf')) {
+          triggerDownload(await pdfRes.blob(), 'resume_tailored.pdf');
+          downloaded = true;
+          showTailorStatus('✓ PDF downloaded!', '#34d399');
+        }
+      } catch (_) { /* CORS or network — fall through to .tex fallback */ }
+
+      if (!downloaded) {
+        triggerDownload(new Blob([latex], { type: 'text/plain' }), 'resume_tailored.tex');
+        showTailorStatus('⚠ PDF compile unavailable — .tex downloaded. Upload to Overleaf to compile.', '#fbbf24');
+      }
+
+      setTimeout(() => showTailorStatus(''), 7000);
+    } catch (err) {
+      showTailorStatus('✗ ' + err.message, '#f87171');
+    } finally {
+      updateTailorBtn();
+    }
   }
 </script>
 </body>
